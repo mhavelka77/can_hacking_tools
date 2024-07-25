@@ -1,0 +1,19 @@
+#!/usr/bin/python3
+
+import sys
+
+# read the input
+inputString = ""
+for line in sys.stdin:
+    inputString += line
+
+n = int(sys.argv[1])
+r = sys.argv[2]
+
+inputString = inputString.split("*")
+
+for i in range(n):
+	print((inputString[0] + i*r + inputString[1]).strip('\n'))
+
+
+

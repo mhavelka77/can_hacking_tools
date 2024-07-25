@@ -1,0 +1,28 @@
+#!/usr/bin/python3
+
+import sys
+import argparse
+from scapy.all import *
+
+# Read the input
+inputString = ""
+for line in sys.stdin:
+    inputString += line
+
+# Parse arguments
+parser = argparse.ArgumentParser()
+parser.add_argument("-t", "--targetIpAddress", help = "Specify IP address")
+parser.add_argument("-d", "--destinationPort", help = "Specify destination port")
+parser.add_argument("-s", "--sourcePort", help = "Specify source port")
+parser.add_argument("-i", "--interface", help = "Specify interface")
+args = parser.parse_args()
+ 
+if (not args.targetIpAddress) or (not args.port) or (not args.interface):
+	print("IP address, port and interface needed, exitting!")
+	sys.exit()		
+
+packet = IP(dst=args.targetIpAddress) / TCP(dport=int(args.destinationPort), sport=int(args.sourcePort)) / bytearray.fromhex(inputString) 
+
+send(packet, iface=args.interface)
+
+
